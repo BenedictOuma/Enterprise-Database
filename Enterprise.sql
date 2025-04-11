@@ -2,6 +2,7 @@ create database RetailSales;
 
 use RetailSales;   
 
+-------------------creating customers table and inserting data into it----------------------
 create table Customers (
     CustomerID int identity (100,1) primary key,
     CustomerName varchar (60) not null,
