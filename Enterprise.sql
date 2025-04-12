@@ -2,8 +2,6 @@ create database RetailSales;
 
 use RetailSales;   
 
--------------------creation of Customers table and inserting data into it-------------------
-
 create table Customers (
     CustomerID int identity (100,1) primary key,
     CustomerName varchar (60) not null,
@@ -275,6 +273,7 @@ select*from RemainingStock;
 
 ------------------monthly sales trends for business growth------------------
 ---this gives the month and date the sale was made, organizes them in months in ascending order
+
 select
 format (o.OrderDate, 'yyyy-MM') as Month, 
 sum (od.SaleAmount) as TotalSales
@@ -342,7 +341,3 @@ group by od.CustomerID, c.CustomerName
 )
 select*from FrequentBuyers
 order by TotalOrders desc;
-
---------------------------------retrieving EmployeeID and EmployeeName from the Employees table--------------------------------
-
-select EmployeeID, EmployeeName from Employees;
