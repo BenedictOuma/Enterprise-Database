@@ -2,7 +2,8 @@ create database RetailSales;
 
 use RetailSales;   
 
--------------------creating Customers table and inserting data inti it-------------------
+-------------------creation of Customers table and inserting data into it-------------------
+
 create table Customers (
     CustomerID int identity (100,1) primary key,
     CustomerName varchar (60) not null,
@@ -341,3 +342,7 @@ group by od.CustomerID, c.CustomerName
 )
 select*from FrequentBuyers
 order by TotalOrders desc;
+
+--------------------------------retrieving EmployeeID and EmployeeName from the Employees table--------------------------------
+
+select EmployeeID, EmployeeName from Employees;
