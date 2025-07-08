@@ -118,11 +118,11 @@ select*from Sales;
 
 with OrderDetails as (
 select
-o.OrderID,
-o.CustomerID,
-o.OrderQuantity,
-p.ProductPrice,
-(o.OrderQuantity * p.ProductPrice) as OrderAmount,
+	o.OrderID,
+	o.CustomerID,
+	o.OrderQuantity,
+	p.ProductPrice,
+	(o.OrderQuantity * p.ProductPrice) as OrderAmount,
 case when o.OrderStatus = 'Delivered' then (o.OrderQuantity * p.ProductPrice + o.ShippingFee) else null end as SaleAmount,
 case when o.OrderStatus = 'Delivered' then cast((o.OrderQuantity * p.ProductPrice + o.ShippingFee) * 0.05 as int) else null end as Commission
 from Orders o
@@ -141,13 +141,13 @@ select*from SalesDetails;
 
 with OrderDetails as (
 select
-o.CustomerID,
-o.OrderID,
-o.OrderQuantity,
-p.ProductPrice,
-(o.OrderQuantity * p.ProductPrice) as OrderAmount,
-((o.OrderQuantity * p.ProductPrice)+o.ShippingFee) as SaleAmount,
-cast((o.OrderQuantity * p.ProductPrice+ o.ShippingFee)*0.05 as int) as Commission
+	o.CustomerID,
+	o.OrderID,
+	o.OrderQuantity,
+	p.ProductPrice,
+	(o.OrderQuantity * p.ProductPrice) as OrderAmount,
+	((o.OrderQuantity * p.ProductPrice)+o.ShippingFee) as SaleAmount,
+	cast((o.OrderQuantity * p.ProductPrice+ o.ShippingFee)*0.05 as int) as Commission
 from Orders o
 join Products p
 on o.ProductId=p.ProductID
@@ -165,13 +165,13 @@ select*from SalesDetails;
 
 with OrderDetails as (
 select
-o.CustomerID,
-o.OrderID,
-o.OrderQuantity,
-p.ProductPrice,
-(o.OrderQuantity * p.ProductPrice) as OrderAmount,
-((o.OrderQuantity * p.ProductPrice)+o.ShippingFee) as SaleAmount,
-cast((o.OrderQuantity * p.ProductPrice+ o.ShippingFee)*0.05 as int) as Commission
+	o.CustomerID,
+	o.OrderID,
+	o.OrderQuantity,
+	p.ProductPrice,
+	(o.OrderQuantity * p.ProductPrice) as OrderAmount,
+	((o.OrderQuantity * p.ProductPrice)+o.ShippingFee) as SaleAmount,
+	cast((o.OrderQuantity * p.ProductPrice+ o.ShippingFee)*0.05 as int) as Commission
 from Orders o
 join Products p
 on o.ProductId=p.ProductID
@@ -253,10 +253,10 @@ order by TotalSoldUnits desc;
 
 with SoldStock as (
 select
-p.ProductID,
-p.ProductName,
-s.OrderID,
-o.OrderQuantity as SoldQuantity
+	p.ProductID,
+	p.ProductName,
+	s.OrderID,
+	o.OrderQuantity as SoldQuantity
 from Orders o
 join Sales s on o.OrderId=s.OrderID
 join Products p on p.ProductID=o.ProductID
@@ -275,8 +275,8 @@ select*from RemainingStock;
 ---this gives the month and date the sale was made, organizes them in months in ascending order
 
 select
-format (o.OrderDate, 'yyyy-MM') as Month, 
-sum (od.SaleAmount) as TotalSales
+	format (o.OrderDate, 'yyyy-MM') as Month, 
+	sum (od.SaleAmount) as TotalSales
 from #OrderDetails od
 join Orders o on od.OrderID = o.OrderID
 group by format(o.OrderDate, 'yyyy-MM')
@@ -286,21 +286,21 @@ order by Month asc;
 
 with OrderDetails as(
 select 
-o.CustomerID ,
-o.OrderID,
-o.OrderQuantity,
-p.ProductPrice,
-(o.OrderQuantity * p.ProductPrice) as OrderAmount ,
-case when o.OrderStatus= 'Delivered' then ((o.OrderQuantity*p.ProductPrice)+ o.ShippingFee) else null end as SaleAmount,
-case when o.OrderStatus= 'Delivered' then cast(((o.OrderQuantity*p.ProductPrice)+ o.ShippingFee)*0.05 as int ) else null end  as Commission
+	o.CustomerID ,
+	o.OrderID,
+	o.OrderQuantity,
+	p.ProductPrice,
+	(o.OrderQuantity * p.ProductPrice) as OrderAmount ,
+	case when o.OrderStatus= 'Delivered' then ((o.OrderQuantity*p.ProductPrice)+ o.ShippingFee) else null end as SaleAmount,
+	case when o.OrderStatus= 'Delivered' then cast(((o.OrderQuantity*p.ProductPrice)+ o.ShippingFee)*0.05 as int ) else null end  as Commission
 from Orders o
 join Products p
 on o.ProductID=p.ProductID
 ),
 EmployeeSalePerformance as (
 Select
-e.EmployeeName,
-e.EmployeeID,
+	e.EmployeeName,
+	e.EmployeeID,
 count(s.OrderID) as TotalOrders,
 sum(od.OrderAmount) as TotalRevenue,
 sum(od.Commission) as TotalCommission
@@ -318,13 +318,13 @@ order by TotalRevenue desc;
 
 with OrderDetails as (
 select
-o.OrderID,
-o.CustomerID,
-o.OrderQuantity,
-p.ProductPrice,
-(o.OrderQuantity * p.ProductPrice) as OrderAmount,
-case when o.OrderStatus = 'Delivered' then (o.OrderQuantity * p.ProductPrice + o.ShippingFee) else null end as SaleAmount,
-case when o.OrderStatus = 'Delivered' then cast((o.OrderQuantity * p.ProductPrice + o.ShippingFee) * 0.05 as int) else null end as Commission
+	o.OrderID,
+	o.CustomerID,
+	o.OrderQuantity,
+	p.ProductPrice,
+	(o.OrderQuantity * p.ProductPrice) as OrderAmount,
+	case when o.OrderStatus = 'Delivered' then (o.OrderQuantity * p.ProductPrice + o.ShippingFee) else null end as SaleAmount,
+	case when o.OrderStatus = 'Delivered' then cast((o.OrderQuantity * p.ProductPrice + o.ShippingFee) * 0.05 as int) else null end as Commission
 from Orders o
 join Products p on o.ProductID = p.ProductID
 ),
